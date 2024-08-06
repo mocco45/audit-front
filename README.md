@@ -1,4 +1,4 @@
-# @vue/latest
+# cone-prod-ms
 
 ## Project setup
 ```
