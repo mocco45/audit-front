@@ -15,12 +15,12 @@
     <button @click="uploadFiles" class="upload-button" :disabled="acceptedFiles.length === 0">Upload Files</button>
     <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     <!-- <div v-if="isUploading"> -->
-      <div v-for="(file, index) in acceptedFiles" :key="index" class="upload-status">
-        <span>{{ file.name }}</span>
-        <span v-if="uploadStatus[index] === 'uploading'" class="spinner"></span>
-        <span v-if="uploadStatus[index] === 'success'" class="success">✔️</span>
-        <span v-if="uploadStatus[index] === 'failed'" class="failed">❌</span>
-      </div>
+    <div v-for="(file, index) in acceptedFiles" :key="index" class="upload-status">
+      <span>{{ file.name }}</span>
+      <span v-if="uploadStatus[index] === 'uploading'" class="spinner"></span>
+      <span v-if="uploadStatus[index] === 'success'" class="success">✔️</span>
+      <span v-if="uploadStatus[index] === 'failed'" class="failed">❌</span>
+    </div>
     <!-- </div> -->
   </div>
 </template>
@@ -186,8 +186,13 @@ const { getRootProps, getInputProps, open, isDragActive } = useDropzone({ onDrop
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .success {

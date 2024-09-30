@@ -1,12 +1,12 @@
 <template>
-    <Topbar/>
+    <Topbar />
     <div class="mt-2">
-        <Back/>
+        <Back />
     </div>
     <div>
-        <Upload/>
+        <Upload />
     </div>
-    
+
 </template>
 
 <script setup>
@@ -17,6 +17,4 @@ import Upload from '@/components/upload.vue';
 
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
