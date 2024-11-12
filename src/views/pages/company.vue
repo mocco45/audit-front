@@ -4,7 +4,10 @@ import { useRouter } from 'vue-router';
 import apiClient from '@/axios';
 import Topbar from '@/components/navigation/topbar.vue';
 import Back from '@/components/navigation/back.vue';
+<<<<<<< HEAD
 import pagination from '@/components/navigation/pagination.vue';
+=======
+>>>>>>> bdc32ee9246b4b2219f5d1620abe021200cac763
 
 const companies = ref([]);
 const searchQuery = ref('');
@@ -75,7 +78,40 @@ onMounted(() => fetchCompanies());
     </div>
 
     <!-- Pagination Navigation -->
+<<<<<<< HEAD
     <pagination :currentPage="page" :itemsPerPage="itemsPerPage" :totalItems="totalCompanies"
       @page-changed="fetchCompanies" />
+=======
+    <nav
+      class="absolute inset-x-0 bottom-0 flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 bg-white dark:bg-gray-900"
+      aria-label="Table navigation">
+      <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+        Showing <span class="font-semibold text-gray-900 dark:text-white">{{ (page - 1) * itemsPerPage + 1 }}-{{
+          Math.min(page * itemsPerPage, totalCompanies) }}</span> of <span
+          class="font-semibold text-gray-900 dark:text-white">{{ totalCompanies }}</span>
+      </span>
+      <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <li>
+          <button :disabled="page === 1" @click="fetchCompanies(page - 1)"
+            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            Previous
+          </button>
+        </li>
+        <li v-for="n in pages" :key="n">
+          <button @click="fetchCompanies(n)"
+            :class="{ 'bg-blue-500 text-white': n === page, 'bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white': n !== page }"
+            class="flex items-center justify-center px-3 h-8 leading-tight border border-gray-300">
+            {{ n }}
+          </button>
+        </li>
+        <li>
+          <button :disabled="page === pages" @click="fetchCompanies(page + 1)"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+>>>>>>> bdc32ee9246b4b2219f5d1620abe021200cac763
   </div>
 </template>
