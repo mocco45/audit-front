@@ -16,7 +16,8 @@ export const useAuthStore = defineStore("auth", {
       this.isLoading = true;
       this.error = null;
       try {
-        await apiClient.post("/register", userData);
+        await apiClient.post("/create-user/", userData);
+        router.push("/");
       } catch (error) {
         this.error = error.response
           ? error.response.data.message

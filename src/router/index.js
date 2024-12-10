@@ -6,14 +6,14 @@ export const adminRoutes = [
   {
     path: "/",
     name: "AdminDashboard",
-    component: () => import("../components/navigation/Main.vue"),
+    component: () => import("../components/AdmnPanel.vue"),
     meta: { requiredGroup: "admin" },
     children: [
       {
         path: "/dashboard",
         name: "dashadmin",
         // component: () => import("../components/modal/delete.vue"),
-        component: () => import("../views/Admin/user.vue"),
+        component: () => import("../views/Admin/dashboard.vue"),
         meta: { requiredGroup: "admin" },
       },
       {
@@ -26,6 +26,12 @@ export const adminRoutes = [
         path: "/access",
         name: "access-control",
         component: () => import("../views/Admin/accessChange.vue"),
+        meta: { requiredGroup: "admin" },
+      },
+      {
+        path: "/user/:id",
+        name: "user",
+        component: () => import("../views/Admin/user.vue"),
         meta: { requiredGroup: "admin" },
       },
     ],

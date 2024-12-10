@@ -5,7 +5,8 @@ import { useAccessStore } from '../../store/accessStore';
 const accessStore = useAccessStore();
 const props = defineProps({
     id: Number,
-    isOpen: Boolean
+    isOpen: Boolean,
+    is_active: Boolean
 });
 const emit = defineEmits(['close']);
 const isModalOpen = computed(() => props.isOpen);
@@ -14,8 +15,8 @@ function closeModal() {
     emit('close');
 }
 
-function handleDelete(id) {
-    accessStore.delete(id);
+function handleDeactivate(id, is_active) {
+    accessStore.deactivate(id, is_active);
     closeModal();
 }
 </script>
@@ -25,7 +26,7 @@ function handleDelete(id) {
         <div class="bg-white p-8 rounded shadow-lg w-1/3 h-60">
 
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Delete Account</h2>
+                <h2 class="text-xl font-bold">Deactivate Account</h2>
                 <button @click="closeModal" class="hover:text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -44,7 +45,7 @@ function handleDelete(id) {
             </div>
             <!-- Modal Content -->
             <div>
-                <p>Are you sure you want to delete this account?</p>
+                <p>Are you sure you want to deactivate this account?</p>
             </div>
 
             <!-- Modal Actions -->
@@ -52,9 +53,9 @@ function handleDelete(id) {
                 <button @click="closeModal" class="bg-white border border-slate-400 text-black px-4 py-2 rounded-xl">
                     Cancel
                 </button>
-                <button @click="handleDelete(id)"
+                <button @click="handleDeactivate(id, is_active)"
                     class="bg-red-700 ms-2 hover:bg-red-500 text-white px-4 py-2 rounded-xl">
-                    Delete
+                    Deactivate
                 </button>
             </div>
         </div>

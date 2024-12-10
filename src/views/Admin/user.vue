@@ -9,8 +9,10 @@
                     <section class="mt-2">
                         <h2 class="mb-1 font-bold">Personal info</h2>
                         <div>
-                            <p><span class="font-medium leading-relaxed">Full Name</span> : innocent john mpaki</p>
-                            <p><span class="font-medium leading-relaxed">Email</span>: chonja74@gmail.com</p>
+                            <p><span class="font-medium leading-relaxed">Full Name</span> : {{ userDetail.first_name }}
+                                {{
+                                    userDetail.last_name }}</p>
+                            <p><span class="font-medium leading-relaxed">Email</span>: {{ userDetail.email }}</p>
                             <p><span class="font-medium">Contact</span>: 0744611319</p>
                         </div>
                     </section>
@@ -22,11 +24,14 @@
                         </div>
                     </section>
                     <div>
-                        <button class="w-full bg-yellow-900 hover:bg-yellow-700 text-white px-4 py-2 rounded"
-                            @click="open">Deactivate</button>
-                        <!-- <button class="w-full bg-red-900 hover:bg-red-700 text-white px-4 py-2 rounded" @click="open=true;">Delete</button> -->
+                        <button
+                            :class="[userDetail.is_active ? ' bg-blue-700 hover:bg-blue-500' : ' bg-green-700 hover:bg-green-500', 'w-full text-white px-4 py-2 rounded-xl']"
+                            @click="open = !open">{{ userDetail.is_active ? 'Deactivate' : 'Activate' }}</button>
+                        <button class="w-full bg-red-700 hover:bg-red-500 text-white mt-3 px-4 py-2 rounded-xl"
+                            @click="isOpen = true;">Delete</button>
                     </div>
-                    <Delete :id="2" :isOpen="open" />
+                    <Deactivate :id="userID" :is_active="userDetail.is_active" :isOpen="open" @close="handleClose" />
+                    <Delete :id="userID" :isOpen="isOpen" @close="handleClose2" />
                 </div>
             </div>
 
@@ -38,13 +43,31 @@
 
 <script setup>
 
-import { ref } from 'vue';
-import Delete from '../../components/modal/delete.vue';
+import Deactivate from '@/components/modal/deactivate.vue';
+import Delete from '@/components/modal/delete.vue';
+import { useAccessStore } from '@/store/accessStore';
+
+import { computed, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
 
 const open = ref(false);
+const isOpen = ref(false);
+const route = useRoute();
+const userFetch = useAccessStore();
+const userID = route.params.id;
+function handleClose() {
+    open.value = false;
+}
+function handleClose2() {
+    isOpen.value = false;
+}
+const userDetail = computed(() => userFetch.userDetails);
 
-console.log('test', open);
 
+onMounted(() => {
+    userFetch.user(userID);
+})
 
 </script>
 

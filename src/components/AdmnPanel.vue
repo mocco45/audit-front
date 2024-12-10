@@ -5,10 +5,10 @@
             <h2 class="text-white text-2xl mb-8">Sidebar</h2>
             <ul>
                 <li class="text-white py-2 hover:bg-gray-600">
-                    <router-link to="">Dashboard</router-link>
+                    <router-link to="/dashboard">Dashboard</router-link>
                 </li>
                 <li class="text-white py-2 hover:bg-gray-600">
-                    <router-link to="">User</router-link>
+                    <router-link to="/user-list">User</router-link>
                 </li>
                 <li class="text-white py-2 hover:bg-gray-600">
                     <router-link to="">Profile</router-link>
@@ -53,8 +53,7 @@
 
             <!-- Content -->
             <div class="p-8 flex-1">
-                <h1 class="text-3xl font-bold">Welcome to the Dashboard</h1>
-                <p class="mt-4">This is the main content area.</p>
+                <router-view />
                 <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div class="bg-white p-8 rounded shadow-lg w-2/3 h-4/5">
                         <div class="flex justify-between">
@@ -129,10 +128,11 @@
 
 <script setup>
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/vue/24/outline";
-import { useInitialsAvatar } from "../composable/useInitials";
-import { useAuthStore } from "../store/authStore";
+import { useInitialsAvatar } from "@/composable/useInitials";
+import { useAuthStore } from "@/store/authStore";
 import { ref, onMounted, onUnmounted } from "vue";
-import { useAccessStore } from "../store/accessStore";
+import { useAccessStore } from "@/store/accessStore";
+
 
 const toogle = ref(false);
 const isModalOpen = ref(false);
@@ -172,7 +172,6 @@ const handleClickOutside = (event) => {
 
 onMounted(() => {
     document.addEventListener("click", handleClickOutside);
-    access.list_user();
 });
 
 onUnmounted(() => {

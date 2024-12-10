@@ -7,6 +7,7 @@
                     <th class="border border-slate-600 text-center">User</th>
                     <th class="border border-slate-600 text-center">Role</th>
                     <th class="border border-slate-600 text-center">Permission</th>
+                    <th class="border border-slate-600 text-center">Status</th>
                     <th class="border border-slate-600 text-center">Action</th>
                 </tr>
             </thead>
@@ -21,9 +22,18 @@
                     <td class="border border-collapse border-slate-700 text-center">{{ user.groups.join(', ') }}</td>
                     <td class="border border-collapse border-slate-700 text-center">{{ user.permission.join(', ') }}
                     </td>
+                    <td class="border border-collapse border-slate-700 text-center">
+                        <div class="flex justify-center">
+                            <div v-if="user.is_active" class="w-5 h-5 me-1 rounded-full border bg-green-500"></div>
+                            <div v-else class="w-5 h-5 me-1 rounded-full border bg-red-500"></div>{{ user.is_active ?
+                                "active"
+                                : "not active" }}
+                        </div>
+                    </td>
                     <td class="border border-collapse border-slate-700 ">
                         <div class="flex justify-center">
-                            <router-link class="underline hover:text-blue-600" to="">view</router-link>
+                            <router-link class="underline hover:text-blue-600"
+                                :to="{ name: 'user', params: { id: user.id } }">view</router-link>
                         </div>
                     </td>
                 </tr>
@@ -40,7 +50,6 @@ import { useAccessStore } from '../../store/accessStore';
 const user_list = useAccessStore();
 
 const users = computed(() => user_list.user_list);
-
 
 user_list.list_user();
 </script>

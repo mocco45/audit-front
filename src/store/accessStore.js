@@ -8,6 +8,7 @@ export const useAccessStore = defineStore("access", {
     permissions: [],
     user_permit: [],
     message: null,
+    userDetails: [],
   }),
   actions: {
     async list_user() {
@@ -18,18 +19,22 @@ export const useAccessStore = defineStore("access", {
         console.log("there is error");
       }
     },
-    async list_permissions($id) {
+    async user($id) {
       try {
         const response = await apiClient.get(`/user/${$id}`);
-        this.permissions = response.data;
-        // console.log("permissions", this.permissions);
+        this.userDetails = response.data;
       } catch (error) {
         console.log("there is error");
       }
     },
-    async deactivate($id) {
+    async deactivate($id, data) {
       try {
-        const response = await apiClient.patch(`/user/${$id}`);
+        const response = await apiClient.patch(`/user/${$id}`, {
+          is_active: !data,
+        });
+
+        this.userDetails.is_active = !data;
+
         console.log("try message", response);
       } catch (error) {
         console.log("error during deactivating user");
