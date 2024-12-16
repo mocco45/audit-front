@@ -32,8 +32,10 @@
                     </td>
                     <td class="border border-collapse border-slate-700 ">
                         <div class="flex justify-center">
-                            <router-link class="underline hover:text-blue-600"
-                                :to="{ name: 'user', params: { id: user.id } }">view</router-link>
+                            <router-link class="underline hover:text-blue-600 me-1"
+                                :to="{ name: 'user', params: { id: user.id } }">view</router-link> | <router-link
+                                class="underline hover:text-blue-600 ms-1"
+                                :to="{ name: 'access', params: { id: user.id } }">access</router-link>
                         </div>
                     </td>
                 </tr>

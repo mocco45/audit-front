@@ -23,8 +23,8 @@ export const adminRoutes = [
         meta: { requiredGroup: "admin" },
       },
       {
-        path: "/access",
-        name: "access-control",
+        path: "/access/:id",
+        name: "access",
         component: () => import("../views/Admin/accessChange.vue"),
         meta: { requiredGroup: "admin" },
       },

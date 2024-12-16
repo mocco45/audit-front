@@ -23,6 +23,24 @@ export const useAccessStore = defineStore("access", {
       try {
         const response = await apiClient.get(`/user/${$id}`);
         this.userDetails = response.data;
+        this.user_permit = response.data.permission;
+      } catch (error) {
+        console.log("there is error");
+      }
+    },
+    async user_perm_change($id, data) {
+      try {
+        const response = await apiClient.patch(`/user/${$id}`, {
+          user_permissions: data,
+        });
+      } catch (error) {
+        console.log("error during deactivating user");
+      }
+    },
+    async list_permission() {
+      try {
+        const response = await apiClient.get("/permissions");
+        this.permissions = response.data.map((item) => item.name);
       } catch (error) {
         console.log("there is error");
       }
@@ -34,8 +52,6 @@ export const useAccessStore = defineStore("access", {
         });
 
         this.userDetails.is_active = !data;
-
-        console.log("try message", response);
       } catch (error) {
         console.log("error during deactivating user");
       }
