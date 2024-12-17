@@ -6,7 +6,6 @@
                     <th class="border border-slate-600 text-center">S/N</th>
                     <th class="border border-slate-600 text-center">User</th>
                     <th class="border border-slate-600 text-center">Role</th>
-                    <th class="border border-slate-600 text-center">Permission</th>
                     <th class="border border-slate-600 text-center">Status</th>
                     <th class="border border-slate-600 text-center">Action</th>
                 </tr>
@@ -20,8 +19,7 @@
                         user.last_name }}
                     </td>
                     <td class="border border-collapse border-slate-700 text-center">{{ user.groups.join(', ') }}</td>
-                    <td class="border border-collapse border-slate-700 text-center">{{ user.permission.join(', ') }}
-                    </td>
+
                     <td class="border border-collapse border-slate-700 text-center">
                         <div class="flex justify-center">
                             <div v-if="user.is_active" class="w-5 h-5 me-1 rounded-full border bg-green-500"></div>

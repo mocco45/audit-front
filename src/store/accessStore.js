@@ -9,6 +9,7 @@ export const useAccessStore = defineStore("access", {
     user_permit: [],
     message: null,
     userDetails: [],
+    groups: [],
   }),
   actions: {
     async list_user() {
@@ -41,6 +42,25 @@ export const useAccessStore = defineStore("access", {
       try {
         const response = await apiClient.get("/permissions");
         this.permissions = response.data.map((item) => item.name);
+      } catch (error) {
+        console.log("there is error");
+      }
+    },
+    async list_roles() {
+      try {
+        const response = await apiClient.get("/roles");
+        this.groups = response.data;
+      } catch (error) {
+        console.log("there is error");
+      }
+    },
+    async assign_roles(data) {
+      try {
+        const response = await apiClient.post("/assign-role", {
+          user_id: data.userID,
+          role_id: data.roleID,
+        });
+        this.groups = response.data.map((item) => item.name);
       } catch (error) {
         console.log("there is error");
       }

@@ -11,10 +11,10 @@
                     <router-link to="/user-list">User</router-link>
                 </li>
                 <li class="text-white py-2 hover:bg-gray-600">
-                    <router-link to="">Profile</router-link>
+                    <router-link to="/companies">Company</router-link>
                 </li>
                 <li class="text-white py-2 hover:bg-gray-600">
-                    <router-link to="">Messages</router-link>
+                    <router-link to="">Upload</router-link>
                 </li>
             </ul>
         </div>
