@@ -1,5 +1,8 @@
 <template>
     <div class="">
+        <div class="mt-2">
+            <Back />
+        </div>
         <div class="grid grid-cols-2 w-full">
             <div class="flex justify-center">
                 <div class="w-96 h-96 bg-slate-600 rounded-full"></div>
@@ -26,7 +29,8 @@
                     <div>
                         <button
                             :class="[userDetail.is_active ? ' bg-blue-700 hover:bg-blue-500' : ' bg-green-700 hover:bg-green-500', 'w-full text-white px-4 py-2 rounded-xl']"
-                            @click="open = !open">{{ userDetail.is_active ? 'Deactivate' : 'Activate' }}</button>
+                            @click="userDetail.is_active ? open = !open : userFetch.deactivate(userID, false);">{{
+                                userDetail.is_active ? 'Deactivate' : 'Activate' }}</button>
                         <button class="w-full bg-red-700 hover:bg-red-500 text-white mt-3 px-4 py-2 rounded-xl"
                             @click="isOpen = true;">Delete</button>
                     </div>
@@ -45,6 +49,7 @@
 
 import Deactivate from '@/components/modal/deactivate.vue';
 import Delete from '@/components/modal/delete.vue';
+import Back from '@/components/navigation/back.vue';
 import { useAccessStore } from '@/store/accessStore';
 
 import { computed, onMounted, ref } from 'vue';

@@ -1,10 +1,12 @@
 <template>
     <div>
-        all in here
+        <PieChart />
     </div>
 </template>
 
 <script setup>
+import PieChart from '@/components/charts/PieChart.vue';
+
 
 </script>
 

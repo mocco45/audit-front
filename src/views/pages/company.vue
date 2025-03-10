@@ -42,10 +42,7 @@ onMounted(() => fetchCompanies());
 
 
 <template>
-  <Topbar />
-  <div class="mt-2">
-    <Back />
-  </div>
+
   <div v-if="companies.length > 0" class="container relative mx-auto p-4 min-h-screen">
     <div class="overflow-x-auto sm:rounded-lg">
       <div class="pb-4 bg-white dark:bg-gray-900">

@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
 import apiClient from "../axios";
 import router from "../router";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 export const useAccessStore = defineStore("access", {
   state: () => ({
@@ -73,7 +76,12 @@ export const useAccessStore = defineStore("access", {
 
         this.userDetails.is_active = !data;
       } catch (error) {
-        console.log("error during deactivating user");
+        if (error.response) {
+          toast.error(error.response.data.error);
+          console.log("error during deactivating user", error.response.data);
+        } else {
+          console.log("error no response");
+        }
       }
     },
     async delete($id) {

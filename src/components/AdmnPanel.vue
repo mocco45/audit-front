@@ -14,7 +14,7 @@
                     <router-link to="/companies">Company</router-link>
                 </li>
                 <li class="text-white py-2 hover:bg-gray-600">
-                    <router-link to="">Upload</router-link>
+                    <router-link to="/upload">Upload12</router-link>
                 </li>
             </ul>
         </div>
@@ -43,8 +43,11 @@
                                 <button @click="isModalOpen = true; closeDropdown();"
                                     class="cursor-pointer">Profile</button>
                             </li>
-                            <li>
-                                <router-link to="">Logout</router-link>
+                            <li @click="logout()">
+                                <div class="flex justify-center items-center cursor-pointer">
+                                    <ArrowRightStartOnRectangleIcon class="h-4 w-6" />
+                                    logout
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -127,7 +130,7 @@
 </template>
 
 <script setup>
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/vue/24/outline";
+import { ArrowRightStartOnRectangleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/vue/24/outline";
 import { useInitialsAvatar } from "@/composable/useInitials";
 import { useAuthStore } from "@/store/authStore";
 import { ref, onMounted, onUnmounted } from "vue";
@@ -144,6 +147,10 @@ const auth = useAuthStore();
 const access = useAccessStore();
 const email = "chobja@gmail.com";
 const profile = useInitialsAvatar("inocent john");
+const log = useAuthStore();
+const logout = () => {
+    log.logout();
+}
 
 const handleChecked = () => {
 
@@ -169,6 +176,7 @@ const handleClickOutside = (event) => {
         closeDropdown();
     }
 };
+
 
 onMounted(() => {
     document.addEventListener("click", handleClickOutside);

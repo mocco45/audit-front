@@ -14,6 +14,8 @@ import {
   LegendComponent,
   GridComponent,
 } from "echarts/components";
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 use([
   CanvasRenderer,
@@ -29,6 +31,7 @@ const app = createApp(App);
 app.provide(THEME_KEY, "dark");
 app.component("v-chart", VChart);
 app.use(router);
+app.use(Toast);
 app.use(createPinia());
 
 const authStore = useAuthStore();
@@ -49,9 +52,7 @@ function startAutoLogout() {
 
   window.addEventListener("mousemove", resetTimer);
   window.addEventListener("keypress", resetTimer);
-  // Other event listeners for user activity
 
-  // Optional: Clear the timer if the user logs out or leaves the page
   window.addEventListener("logout", () => {
     clearTimeout(timeoutId);
   });

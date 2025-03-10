@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="mt-2">
+            <Back />
+        </div>
         <div class="flex flex-col mb-4">
             <div class="flex">
                 <label for="name">Name:</label>
@@ -13,6 +16,7 @@
                 </div>
                 <select v-if="toChange" class="ms-2 appearance-none py-0  leading-tight border rounded-full"
                     v-model="selectedRole" id="">
+                    <option value="" selected disabled>--Select role--</option>
                     <option v-for="group in roles" :key="group.id" :value="group.id">{{ group.name }}</option>
                 </select>
                 <div v-if="!toChange" @click="change()"
@@ -84,6 +88,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/vue/24/outline';
 import { useAccessStore } from '../../store/accessStore';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import Back from '@/components/navigation/back.vue';
 
 const route = useRoute();
 const permit = useAccessStore();
@@ -98,12 +103,10 @@ const roles = computed(() => permit.groups);
 const id = route.params.id;
 
 const selectPermission = (index) => {
-    console.log('selected index 1', index);
     selectedIndex.value = index;
 };
 
 const selectPermission2 = (index) => {
-    console.log('selected index 2', index);
     selectedIndex2.value = index;
 };
 

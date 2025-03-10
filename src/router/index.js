@@ -1,7 +1,6 @@
 import { useAuthStore } from "../store/authStore";
 import { createRouter, createWebHistory } from "vue-router";
 
-// Admin routes
 export const adminRoutes = [
   {
     path: "/",
@@ -12,7 +11,6 @@ export const adminRoutes = [
       {
         path: "/dashboard",
         name: "dashadmin",
-        // component: () => import("../components/modal/delete.vue"),
         component: () => import("../views/Admin/dashboard.vue"),
         meta: { requiredGroup: "admin" },
       },
@@ -29,6 +27,18 @@ export const adminRoutes = [
         meta: { requiredGroup: "admin" },
       },
       {
+        path: "/companies",
+        name: "CompanyLists",
+        component: () => import("../views/pages/company.vue"),
+        meta: { requiredGroup: "admin" },
+      },
+      {
+        path: "/upload",
+        name: "Upload",
+        component: () => import("../views/pages/filesimport.vue"),
+        meta: { requiredGroup: ["user", "admin"] },
+      },
+      {
         path: "/user/:id",
         name: "user",
         component: () => import("../views/Admin/user.vue"),
@@ -38,7 +48,6 @@ export const adminRoutes = [
   },
 ];
 
-// User routes
 export const userRoutes = [
   {
     path: "/dashboard",
@@ -50,7 +59,7 @@ export const userRoutes = [
     path: "/upload",
     name: "Upload",
     component: () => import("../views/pages/filesimport.vue"),
-    meta: { requiredGroup: "user" },
+    meta: { requiredGroup: ["user", "admin"] },
   },
   {
     path: "/login",
@@ -118,6 +127,20 @@ const router = createRouter({
   routes: publicRoutes,
 });
 
+function restoreRoutes() {
+  const groups = JSON.parse(localStorage.getItem("groups")) ?? [];
+
+  if (groups.includes("admin") && !router.hasRoute("AdminDashboard")) {
+    adminRoutes.forEach((route) => router.addRoute(route));
+  }
+
+  if (groups.includes("user") && !router.hasRoute("Dashboard")) {
+    userRoutes.forEach((route) => router.addRoute(route));
+  }
+}
+
+restoreRoutes();
+
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   if (
@@ -127,18 +150,21 @@ router.beforeEach(async (to, from, next) => {
     adminRoutes.forEach((route) => router.addRoute(route));
   }
 
-  if (authStore.groups.includes("user") && !router.hasRoute("Dashboard")) {
-    userRoutes.forEach((route) => router.addRoute(route));
+  if (to.meta.requiredGroup) {
+    const requiredGroups = Array.isArray(to.meta.requiredGroup)
+      ? to.meta.requiredGroup
+      : [to.meta.requiredGroup];
+
+    const hasAccess = requiredGroups.some((group) =>
+      authStore.groups.includes(group)
+    );
+
+    if (!hasAccess) {
+      return next({ name: "Forbidden" });
+    }
   }
 
-  if (
-    to.meta.requiredGroup &&
-    !authStore.groups.includes(to.meta.requiredGroup)
-  ) {
-    next({ name: "Forbidden" });
-  } else {
-    next();
-  }
+  next();
 });
 
 export default router;
